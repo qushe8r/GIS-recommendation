@@ -1,14 +1,11 @@
 package com.wanted.demo.global.jwt;
 
-import com.wanted.demo.domain.user.User;
-import com.wanted.demo.domain.user.UserRepository;
 import com.wanted.demo.global.util.TokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.filter.OncePerRequestFilter;
