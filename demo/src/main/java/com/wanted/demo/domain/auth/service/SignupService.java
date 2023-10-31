@@ -1,8 +1,8 @@
 package com.wanted.demo.domain.auth.service;
 
 import com.wanted.demo.domain.auth.dto.SignupRequest;
-import com.wanted.demo.domain.user.Role;
-import com.wanted.demo.domain.user.User;
+import com.wanted.demo.domain.user.domain.Role;
+import com.wanted.demo.domain.user.domain.User;
 import com.wanted.demo.domain.user.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

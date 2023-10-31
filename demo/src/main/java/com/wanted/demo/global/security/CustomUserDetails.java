@@ -1,6 +1,6 @@
 package com.wanted.demo.global.security;
 
-import com.wanted.demo.domain.user.User;
+import com.wanted.demo.domain.user.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

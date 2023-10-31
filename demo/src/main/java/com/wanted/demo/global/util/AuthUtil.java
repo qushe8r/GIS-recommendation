@@ -1,6 +1,6 @@
 package com.wanted.demo.global.util;
 
-import com.wanted.demo.domain.user.User;
+import com.wanted.demo.domain.user.domain.User;
 import com.wanted.demo.domain.user.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

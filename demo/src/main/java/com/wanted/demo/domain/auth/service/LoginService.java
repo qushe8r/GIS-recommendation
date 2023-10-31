@@ -1,7 +1,7 @@
 package com.wanted.demo.domain.auth.service;
 
 import com.wanted.demo.domain.auth.dto.LoginRequest;
-import com.wanted.demo.domain.user.User;
+import com.wanted.demo.domain.user.domain.User;
 import com.wanted.demo.domain.user.UserRepository;
 import com.wanted.demo.global.util.CookieUtil;
 import com.wanted.demo.global.util.RedisUtil;

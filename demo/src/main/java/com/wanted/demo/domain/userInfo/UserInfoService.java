@@ -1,7 +1,7 @@
 package com.wanted.demo.domain.userInfo;
 
-import com.wanted.demo.domain.user.User;
-import com.wanted.demo.domain.user.UserEditor;
+import com.wanted.demo.domain.user.domain.User;
+import com.wanted.demo.domain.user.domain.UserEditor;
 import com.wanted.demo.domain.userInfo.dto.requests.UserInfoUpdateReqeust;
 import com.wanted.demo.domain.userInfo.dto.responses.UserInfoResponse;
 import com.wanted.demo.global.util.AuthUtil;
