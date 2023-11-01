@@ -21,7 +21,7 @@ public class StoreController {
 
     @GetMapping("/storesInRange")
     @ResponseBody
-    public List<StoreListDTO> getStoresInRange(@RequestParam("lat") double lat, @RequestParam("lon") double lon, @RequestParam("range") double range) {
+    public List<StoreListDTO> getStoresInRange( @RequestParam("lat") double lat, @RequestParam("lon") double lon, @RequestParam("range") double range ) {
         return storeService.findStoresInRange(lat,lon,range);
     }
 }

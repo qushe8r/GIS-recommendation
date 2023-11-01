@@ -46,7 +46,7 @@ public class StoreService {
     }
 
     private double latLonToKm(double storeLat, double storeLon, double lat2, double lon2) {
-        double radius = 6371; //km
+        double radius = 6371; //(km)
 
         double dLat = Math.toRadians(lat2 - storeLat);
         double dLon = Math.toRadians(lon2 - storeLon);
