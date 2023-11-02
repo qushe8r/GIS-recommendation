@@ -2,7 +2,9 @@ package com.wanted.demo.store.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
 
+@Getter
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StoreListDTO {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -18,7 +19,7 @@ public class StoreService {
         this.storeRepository = storeRepository;
     }
 
-    public List<StoreListDTO> findStoresInRange(double lat, double lon, double range) {
+    public List<StoreListDTO> findStoresInRange(double lat, double lon, double range, String sort) {
         List<Store> stores = storeRepository.findAll();
 
         List<StoreListDTO> storesInRange = new ArrayList<>();
@@ -42,6 +43,18 @@ public class StoreService {
                 storesInRange.add(storeListDTO);
             }
         }
+
+        switch (sort) {
+            case "distance":
+                storesInRange.sort(Comparator.comparing(StoreListDTO::getDistance));
+                break;
+            case "rating":
+                storesInRange.sort(Comparator.comparing(StoreListDTO::getRating).reversed());
+                break;
+            default:
+                storesInRange.sort(Comparator.comparing(StoreListDTO::getDistance));
+        }
+
         return storesInRange;
     }
 
