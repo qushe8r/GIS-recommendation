@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @NoArgsConstructor
@@ -69,6 +71,12 @@ public class Store {
     private Double refineWgs84Logt;
 
     private Double rating;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
+
+    @Version
+    private Integer version;
 
     public Store(StoreRawData rawData) {
         this.storeId = (rawData.bizplcNm() + rawData.refineLotnoAddr()).replaceAll("\\s", "");
@@ -159,5 +167,23 @@ public class Store {
         this.refineZipCd = store.getRefineZipCd();
         this.refineWgs84Lat = store.getRefineWgs84Lat();
         this.refineWgs84Logt = store.getRefineWgs84Logt();
+    }
+
+    public Store(Long id) {
+        this.id = id;
+    }
+
+    public void calculateRating() {
+        this.rating = this.reviews.stream()
+                .mapToInt(Review::getRating)
+                .average()
+                .orElse(0D);
+    }
+
+    public void receives(Review review) {
+        if (!this.reviews.contains(review)) {
+            this.reviews.add(review);
+            review.about(this);
+        }
     }
 }
