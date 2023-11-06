@@ -1,5 +1,6 @@
 package com.wanted.demo.store.service;
 
+import com.wanted.demo.global.aop.annotation.Retry;
 import com.wanted.demo.store.dto.review.ReviewPost;
 import com.wanted.demo.store.entity.Review;
 import com.wanted.demo.store.entity.Store;
@@ -16,6 +17,7 @@ public class ReviewService {
 
     private final StoreRepository storeRepository;
 
+    @Retry
     @Transactional
     public Review createReview(ReviewPost post, Long userId, Long storeId) {
         // TODO: user: principal에서 꺼내오거나 검증하기
