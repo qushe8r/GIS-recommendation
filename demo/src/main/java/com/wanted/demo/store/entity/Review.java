@@ -36,15 +36,15 @@ public class Review {
     }
 
     public void reviewer(User user) {
-        if (!this.user.getId().equals(user.getId())) {
-            this.user = user;
+        this.user = user;
+        if (!user.getReviews().contains(this)) {
             user.write(this);
         }
     }
 
     public void about(Store store) {
-        if (this.store.getId().equals(store.getId())) {
-            this.store = store;
+        this.store = store;
+        if (!store.getReviews().contains(this)) {
             store.receives(this);
         }
     }
