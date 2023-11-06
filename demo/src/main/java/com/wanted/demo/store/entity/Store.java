@@ -188,6 +188,9 @@ public class Store {
     }
 
     public void versioning() {
+        if (version == null) {
+            version = 0;
+        }
         this.version++;
     }
 }
