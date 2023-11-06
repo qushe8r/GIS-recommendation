@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -37,18 +38,21 @@ public class PublicDataCollectService {
     @Value("${open.api.chi-path}")
     private String chiPath;
 
+    @Scheduled(cron = "0 0 2 * * *")
     public void collectJpnStorePublicData() {
         for (int i = 1; i <= 118; i++) {
             collectData(i, jpnPath, JpnStoreApiResponse.class);
         }
     }
 
+    @Scheduled(cron = "0 15 2 * * *")
     public void collectKimBobStorePublicData() {
         for (int i = 1; i <= 19; i++) {
             collectData(i, kimBobPath, KimBobStoreApiResponse.class);
         }
     }
 
+    @Scheduled(cron = "0 30 2 * * *")
     public void collectChiStorePublicData() {
         for (int i = 1; i <= 145; i++) {
             collectData(i, chiPath, ChiStoreApiResponse.class);
@@ -68,7 +72,7 @@ public class PublicDataCollectService {
                 .retrieve()
                 .bodyToFlux(String.class);
 
-        Flux<T> apiResponseFlux = rawDataFlux.mapNotNull(jsonString -> {
+        Flux<T> rawDataJsonFlux = rawDataFlux.mapNotNull(jsonString -> {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 return objectMapper.readValue(jsonString, responseType);
@@ -78,7 +82,7 @@ public class PublicDataCollectService {
             }
         });
 
-        apiResponseFlux.flatMap(apiResponse -> {
+        rawDataJsonFlux.flatMap(apiResponse -> {
                     if (responseType == JpnStoreApiResponse.class) {
                         return Flux.fromIterable(((JpnStoreApiResponse) apiResponse).genrestrtJpnFood());
                     }
