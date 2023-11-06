@@ -181,9 +181,13 @@ public class Store {
     }
 
     public void receives(Review review) {
-        if (!this.reviews.contains(review)) {
-            this.reviews.add(review);
+        this.reviews.add(review);
+        if (review.getStore() != this) {
             review.about(this);
         }
+    }
+
+    public void versioning() {
+        this.version++;
     }
 }

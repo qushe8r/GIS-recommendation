@@ -47,8 +47,8 @@ public class User {
     }
 
     public void write(Review review) {
-        if (!this.reviews.contains(review)) {
-            this.reviews.add(review);
+        this.reviews.add(review);
+        if (review.getUser() != this) {
             review.reviewer(this);
         }
     }
