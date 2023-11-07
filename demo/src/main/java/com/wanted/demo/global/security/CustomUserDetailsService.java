@@ -16,12 +16,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Optional<User> member = userRepository.findByUsername(username);
-
-        if (member.isEmpty()) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException("------------------------- 해당 유저를 찾을 수 없습니다. 유저 아이디:  " + username);
         }
 
-        return new CustomUserDetails(member.get());
+        return new CustomUserDetails(user.get());
     }
 }

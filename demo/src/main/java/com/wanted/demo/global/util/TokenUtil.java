@@ -1,6 +1,9 @@
 package com.wanted.demo.global.util;
 
 import com.wanted.demo.domain.user.UserRepository;
+import com.wanted.demo.domain.user.domain.User;
+import com.wanted.demo.global.security.CustomUserDetails;
+import com.wanted.demo.global.security.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -109,13 +112,12 @@ public class TokenUtil {
     // 토큰 인증과정 밟기
     public void getAuthenticationFromToken(String accessToken) {
         Long userId = Long.valueOf(getUserIdFromToken(accessToken));
-        String principal = userRepository.findById(userId).get().getUsername();
-        log.info("-------------------------어세스토큰: " + accessToken);
-        log.info("-------------------------유저 아이디: " + principal);
+        User user = userRepository.findById(userId).get();
+        CustomUserDetails customUserDetails = new CustomUserDetails(user);
 
         // JWT 토큰이 유효하면, 사용자 정보를 연결 세션에 추가
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(principal, accessToken, new ArrayList<>());
+                new UsernamePasswordAuthenticationToken(customUserDetails, accessToken, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 }
