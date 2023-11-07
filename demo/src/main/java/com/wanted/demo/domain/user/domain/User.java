@@ -1,16 +1,14 @@
 package com.wanted.demo.domain.user.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.wanted.demo.store.entity.Review;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,6 +27,8 @@ public class User {
     private String latitude; // 위도
     private String longitude; // 경도
     private Boolean lunchService;
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
 
     public void edit(UserEditor userEditor) {
         if (userEditor.getLatitude() != null) {
@@ -39,6 +39,17 @@ public class User {
         }
         if (userEditor.getLunchService() != null) {
             lunchService = userEditor.getLunchService();
+        }
+    }
+
+    public User(Long id) {
+        this.id = id;
+    }
+
+    public void write(Review review) {
+        this.reviews.add(review);
+        if (review.getUser() != this) {
+            review.reviewer(this);
         }
     }
 }
