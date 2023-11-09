@@ -1,16 +1,16 @@
 package com.wanted.demo.store.controller;
 
+import com.wanted.demo.store.dto.StoreDetailDTO;
 import com.wanted.demo.store.dto.StoreListDTO;
 import com.wanted.demo.store.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/store")
 public class StoreController {
     private final StoreService storeService;
 
@@ -19,7 +19,7 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-    @GetMapping("/storesInRange")
+    @GetMapping("/recom")
     @ResponseBody
     public List<StoreListDTO> getStoresInRange(
             @RequestParam("lat") double lat,
@@ -27,5 +27,11 @@ public class StoreController {
             @RequestParam("range") double range,
             @RequestParam(name="sort", required = false, defaultValue = "distance") String sort) {
         return storeService.findStoresInRange(lat,lon,range,sort);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StoreDetailDTO> getStoreDetails(@PathVariable Long id) {
+        StoreDetailDTO storeDetailDTO = storeService.getStoreDetails(id);
+        return ResponseEntity.ok(storeDetailDTO);
     }
 }
