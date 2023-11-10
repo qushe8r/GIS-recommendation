@@ -1,10 +1,12 @@
 package com.wanted.demo.area.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Entity
+@Getter
 public class Area {
 
     @Id
